@@ -71,7 +71,7 @@ void wifiAccessPoint()
 {
     WiFi.mode(WIFI_AP);
 
-    WiFi.softAP("BruceS3","12345678");
+    WiFi.softAP("ESP32-FW","12345678");
 
     lcd.fillScreen(TFT_BLACK);
 
@@ -85,7 +85,7 @@ void wifiAccessPoint()
 
     lcd.print("SSID : ");
 
-    lcd.println("BruceS3");
+    lcd.println("ESP32-FW");
 
     lcd.println();
 
