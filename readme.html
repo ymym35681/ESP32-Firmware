@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ESP32-FW | Documentation</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+}
+
+body{
+
+    background:
+    radial-gradient(circle at top,#2b5cff33 0%,transparent 35%),
+    radial-gradient(circle at bottom right,#5f2dff22 0%,transparent 35%),
+    #090b12;
+
+    color:white;
+
+    font-family:
+    "Segoe UI",
+    Arial,
+    sans-serif;
+
+    overflow-x:hidden;
+
+}
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#3f74ff;
+    border-radius:20px;
+
+}
+
+nav{
+
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+
+    height:70px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:0 70px;
+
+    backdrop-filter:blur(18px);
+
+    background:rgba(18,22,35,.65);
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    z-index:9999;
+
+}
+
+.logo{
+
+    font-size:28px;
+
+    font-weight:700;
+
+    letter-spacing:2px;
+
+    color:#66c3ff;
+
+}
+
+nav ul{
+
+    display:flex;
+
+    list-style:none;
+
+    gap:35px;
+
+}
+
+nav ul li a{
+
+    text-decoration:none;
+
+    color:white;
+
+    transition:.3s;
+
+    font-size:15px;
+
+}
+
+nav ul li a:hover{
+
+    color:#66c3ff;
+
+}
+
+.hero{
+
+    width:100%;
+    min-height:100vh;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:120px 60px;
+
+}
+
+.hero-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 450px;
+
+    gap:80px;
+
+    max-width:1400px;
+
+    width:100%;
+
+    align-items:center;
+
+}
+
+.badge{
+
+    display:inline-block;
+
+    padding:10px 18px;
+
+    border-radius:100px;
+
+    background:#2463ff;
+
+    color:white;
+
+    margin-bottom:25px;
+
+    font-size:14px;
+
+    letter-spacing:1px;
+
+}
+
+.hero h1{
+
+    font-size:70px;
+
+    line-height:1.1;
+
+    margin-bottom:25px;
+
+}
+
+.hero p{
+
+    color:#bcc8e8;
+
+    font-size:19px;
+
+    line-height:1.9;
+
+    margin-bottom:40px;
+
+}
+
+.buttons{
+
+    display:flex;
+
+    gap:20px;
+
+}
+
+.btn{
+
+    text-decoration:none;
+
+    padding:17px 30px;
+
+    border-radius:14px;
+
+    transition:.35s;
+
+    font-weight:600;
+
+}
+
+.primary{
+
+    background:#3578ff;
+
+    color:white;
+
+}
+
+.primary:hover{
+
+    background:#4d8cff;
+
+}
+
+.secondary{
+
+    border:1px solid #3578ff;
+
+    color:#66c3ff;
+
+}
+
+.secondary:hover{
+
+    background:#1a2b5e;
+
+}
+
+.board{
+
+    position:relative;
+
+    width:430px;
+    height:430px;
+
+    margin:auto;
+
+    border-radius:35px;
+
+    background:
+
+    linear-gradient(135deg,#192235,#0f1728);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    box-shadow:
+
+    0 0 50px rgba(40,120,255,.25),
+
+    inset 0 0 50px rgba(255,255,255,.02);
+
+}
+
+.cpu{
+
+    position:absolute;
+
+    width:140px;
+    height:140px;
+
+    background:#263550;
+
+    border-radius:20px;
+
+    left:145px;
+    top:145px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-weight:bold;
+
+    color:#66c3ff;
+
+    border:1px solid rgba(255,255,255,.1);
+
+}
+
+.pin{
+
+    position:absolute;
+
+    width:20px;
+    height:10px;
+
+    background:#d8d8d8;
+
+}
+
+.left{
+
+    left:-10px;
+
+}
+
+.right{
+
+    right:-10px;
+
+}
+
+.top{
+
+    top:-10px;
+
+    width:10px;
+    height:20px;
+
+}
+
+.bottom{
+
+    bottom:-10px;
+
+    width:10px;
+    height:20px;
+
+}
+
+.glow{
+
+    position:absolute;
+
+    width:300px;
+    height:300px;
+
+    border-radius:50%;
+
+    background:#2b6fff;
+
+    filter:blur(120px);
+
+    opacity:.18;
+
+    left:60px;
+    top:60px;
+
+}
+
+section{
+
+    max-width:1350px;
+
+    margin:auto;
+
+    padding:100px 60px;
+
+}
+
+.title{
+
+    font-size:42px;
+
+    margin-bottom:15px;
+
+}
+
+.line{
+
+    width:90px;
+
+    height:4px;
+
+    background:#3578ff;
+
+    border-radius:20px;
+
+    margin-bottom:50px;
+
+}
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+
+    gap:30px;
+
+}
+
+.card{
+
+    background:#111827;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:22px;
+
+    padding:35px;
+
+    transition:.4s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:#3578ff;
+
+    box-shadow:0 0 30px rgba(53,120,255,.2);
+
+}
+
+.card h3{
+
+    margin-bottom:20px;
+
+    color:#66c3ff;
+
+}
+
+.card p{
+
+    color:#b8c4df;
+
+    line-height:1.8;
+
+}
+
+.specs{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+    gap:25px;
+
+    margin-top:50px;
+
+}
+
+.spec{
+
+    background:#111827;
+
+    padding:28px;
+
+    border-radius:18px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+.spec strong{
+
+    display:block;
+
+    color:#66c3ff;
+
+    margin-bottom:10px;
+
+}
+
+footer{
+
+    padding:60px;
+
+    text-align:center;
+
+    color:#8fa1c7;
+
+    border-top:1px solid rgba(255,255,255,.08);
+
+}
+
+@media(max-width:1000px){
+
+.hero-grid{
+
+grid-template-columns:1fr;
+
+text-align:center;
+
+}
+
+.board{
+
+width:320px;
+height:320px;
+
+}
+
+.cpu{
+
+left:90px;
+top:90px;
+
+}
+
+nav{
+
+padding:0 25px;
+
+}
+
+nav ul{
+
+display:none;
+
+}
+
+.hero h1{
+
+font-size:52px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">
+ESP32-FW
+</div>
+
+<ul>
+
+<li><a href="#overview">Overview</a></li>
+
+<li><a href="#requirements">Requirements</a></li>
+
+<li><a href="#installation">Installation</a></li>
+
+<li><a href="#wiring">Wiring</a></li>
+
+<li><a href="#firmware">Firmware</a></li>
+
+</ul>
+
+</nav>
+
+<header class="hero">
+
+<div class="hero-grid">
+
+<div>
+
+<span class="badge">
+ESP32-S3 Firmware
+</span>
+
+<h1>
+ESP32-FW
+</h1>
+
+<p>
+
+Modern firmware designed for the
+ESP32-S3 platform with a clean graphical interface,
+Wi-Fi tools, and an optimized ST7789 display driver.
+
+This documentation contains everything required
+to build, flash, and run the firmware successfully.
+
+</p>
+
+<div class="buttons">
+
+<a href="#requirements" class="btn primary">
+Get Started
+</a>
+
+<a href="#installation" class="btn secondary">
+Installation Guide
+</a>
+
+</div>
+
+</div>
+
+<div>
+
+<div class="board">
+
+<div class="glow"></div>
+
+<div class="cpu">
+ESP32-S3
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</header>
+
+<section id="overview">
+
+<h2 class="title">
+Project Overview
+</h2>
+
+<div class="line"></div>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>
+Modern UI
+</h3>
+
+<p>
+
+Designed with a clean and responsive graphical
+interface optimized for 320×240 displays.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Wi-Fi Features
+</h3>
+
+<p>
+
+Network scanning,
+Access Point mode,
+and wireless utilities.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+ESP32-S3
+</h3>
+
+<p>
+
+Fully tested using the
+ESP32-S3 N16R8 development board
+with Arduino IDE.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Open Source
+</h3>
+
+<p>
+
+Easy to modify,
+extend,
+and build for your own hardware.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="requirements">
+
+<h2 class="title">
+
+Hardware Specifications
+
+</h2>
+
+<div class="line"></div>
+
+<div class="specs">
+
+<div class="spec">
+
+<strong>
+Board
+</strong>
+
+ESP32-S3 N16R8
+
+</div>
+
+<div class="spec">
+
+<strong>
+Arduino IDE Board
+</strong>
+
+ESP32S3 Dev Module
+
+</div>
+
+<div class="spec">
+
+<strong>
+Display
+</strong>
+
+ST7789 TFT LCD
+
+</div>
+
+<div class="spec">
+
+<strong>
+Resolution
+</strong>
+
+320 × 240 Pixels
+
+</div>
+
+<div class="spec">
+
+<strong>
+Display Interface
+</strong>
+
+SPI
+
+</div>
+
+<div class="spec">
+
+<strong>
+Graphics Library
+</strong>
+
+LovyanGFX
+
+</div>
+
+</div>
+
+</section>
+<section id="installation">
+
+<h2 class="title">
+Installation
+</h2>
+
+<div class="line"></div>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>
+Step 1
+</h3>
+
+<p>
+
+Download and install the latest version of
+Arduino IDE.
+
+After the installation is complete,
+launch Arduino IDE once before continuing.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Step 2
+</h3>
+
+<p>
+
+Open
+
+<br><br>
+
+<b>File → Preferences</b>
+
+<br><br>
+
+Locate the field named
+<b>Additional Boards Manager URLs</b>.
+
+Paste the following URL.
+
+</p>
+
+<pre style="margin-top:20px;background:#0d1426;padding:18px;border-radius:12px;overflow:auto;">
+https://espressif.github.io/arduino-esp32/package_esp32_index.json
+</pre>
+
+</div>
+
+<div class="card">
+
+<h3>
+Step 3
+</h3>
+
+<p>
+
+Open
+
+<br><br>
+
+<b>
+Tools → Board → Boards Manager
+</b>
+
+<br><br>
+
+Search for
+
+<br><br>
+
+<b>
+esp32
+</b>
+
+<br><br>
+
+Install
+
+<br><br>
+
+<b>
+esp32 by Espressif Systems
+</b>
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Step 4
+</h3>
+
+<p>
+
+Open
+
+<br><br>
+
+<b>
+
+Sketch → Include Library
+→ Manage Libraries
+
+</b>
+
+<br><br>
+
+Search for
+
+<br><br>
+
+<b>
+
+LovyanGFX
+
+</b>
+
+<br><br>
+
+Install the latest available version.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="configuration">
+
+<h2 class="title">
+
+Arduino IDE Configuration
+
+</h2>
+
+<div class="line"></div>
+
+<div class="specs">
+
+<div class="spec">
+
+<strong>
+
+Board
+
+</strong>
+
+ESP32S3 Dev Module
+
+</div>
+
+<div class="spec">
+
+<strong>
+
+Tested Hardware
+
+</strong>
+
+ESP32-S3 N16R8
+
+</div>
+
+<div class="spec">
+
+<strong>
+
+Flash Size
+
+</strong>
+
+16 MB
+
+</div>
+
+<div class="spec">
+
+<strong>
+
+PSRAM
+
+</strong>
+
+8 MB
+
+</div>
+
+<div class="spec">
+
+<strong>
+
+Display Driver
+
+</strong>
+
+ST7789
+
+</div>
+
+<div class="spec">
+
+<strong>
+
+Graphics Library
+
+</strong>
+
+LovyanGFX
+
+</div>
+
+</div>
+
+</section>
+
+<section id="libraries">
+
+<h2 class="title">
+
+Required Libraries
+
+</h2>
+
+<div class="line"></div>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>
+
+LovyanGFX
+
+</h3>
+
+<p>
+
+Required for driving the ST7789 display.
+
+Install it using the Arduino Library Manager.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+WiFi Library
+
+</h3>
+
+<p>
+
+Already included with the ESP32 Arduino Core.
+
+No manual installation required.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+Arduino Core
+
+</h3>
+
+<p>
+
+Automatically installed together with
+
+<b>
+
+esp32 by Espressif Systems
+
+</b>
+
+No additional setup is required.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+Compatibility
+
+</h3>
+
+<p>
+
+This firmware has been fully tested using
+
+<b>
+
+ESP32-S3 N16R8
+
+</b>
+
+with
+
+<b>
+
+ESP32S3 Dev Module
+
+</b>
+
+selected inside Arduino IDE.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+<section id="wiring">
+
+<h2 class="title">
+Hardware Wiring
+</h2>
+
+<div class="line"></div>
+
+<p style="color:#b9c7e5;font-size:18px;line-height:1.9;margin-bottom:45px;max-width:900px;">
+
+This firmware was developed and tested using the
+ESP32-S3 N16R8 development board together with a
+320×240 ST7789 TFT display.
+
+The display communicates using the SPI interface and
+is driven through the LovyanGFX graphics library.
+
+If your hardware differs from this configuration,
+additional changes to the display driver configuration
+may be required.
+
+</p>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>
+Development Board
+</h3>
+
+<p>
+
+Board
+
+<br><br>
+
+<b>ESP32-S3 N16R8</b>
+
+<br><br>
+
+Arduino IDE Board
+
+<br>
+
+<b>ESP32S3 Dev Module</b>
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Display
+</h3>
+
+<p>
+
+Controller
+
+<br>
+
+<b>ST7789</b>
+
+<br><br>
+
+Resolution
+
+<br>
+
+<b>320 × 240</b>
+
+<br><br>
+
+Interface
+
+<br>
+
+<b>SPI</b>
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Graphics Driver
+</h3>
+
+<p>
+
+Library
+
+<br>
+
+<b>LovyanGFX</b>
+
+<br><br>
+
+Optimized for
+high refresh rate and
+smooth graphics rendering.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+USB Connection
+</h3>
+
+<p>
+
+Connect the board using
+a USB data cable.
+
+Power-only USB cables
+cannot upload firmware.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="pinout">
+
+<h2 class="title">
+GPIO Configuration
+</h2>
+
+<div class="line"></div>
+
+<p style="margin-bottom:40px;color:#b9c7e5;">
+
+The firmware uses the following GPIO assignments.
+
+Modify these values only if your hardware layout is different.
+
+</p>
+
+<div style="overflow:auto;">
+
+<table style="width:100%;border-collapse:collapse;background:#111827;border-radius:18px;overflow:hidden;">
+
+<tr style="background:#1b2b52;">
+
+<th style="padding:18px;text-align:left;">
+Function
+</th>
+
+<th style="padding:18px;text-align:left;">
+GPIO
+</th>
+
+<th style="padding:18px;text-align:left;">
+Description
+</th>
+
+</tr>
+
+<tr>
+
+<td style="padding:16px;border-top:1px solid #222f47;">
+UP Button
+</td>
+
+<td style="padding:16px;border-top:1px solid #222f47;">
+GPIO4
+</td>
+
+<td style="padding:16px;border-top:1px solid #222f47;">
+Navigate Up
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding:16px;border-top:1px solid #222f47;">
+DOWN Button
+</td>
+
+<td style="padding:16px;border-top:1px solid #222f47;">
+GPIO5
+</td>
+
+<td style="padding:16px;border-top:1px solid #222f47;">
+Navigate Down
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding:16px;border-top:1px solid #222f47;">
+OK Button
+</td>
+
+<td style="padding:16px;border-top:1px solid #222f47;">
+GPIO6
+</td>
+
+<td style="padding:16px;border-top:1px solid #222f47;">
+Confirm Selection
+</td>
+
+</tr>
+
+<tr>
+
+<td style="padding:16px;border-top:1px solid #222f47;">
+BACK Button
+</td>
+
+<td style="padding:16px;border-top:1px solid #222f47;">
+GPIO13
+</td>
+
+<td style="padding:16px;border-top:1px solid #222f47;">
+Return / Exit
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+<section id="firmware">
+
+<h2 class="title">
+Uploading the Firmware
+</h2>
+
+<div class="line"></div>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>
+1. Open the Project
+</h3>
+
+<p>
+
+Open
+
+<b>ESP32-FW.ino</b>
+
+using Arduino IDE.
+
+All project files
+will be loaded automatically.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+2. Select the Board
+</h3>
+
+<p>
+
+Go to
+
+<br><br>
+
+<b>
+
+Tools → Board
+
+</b>
+
+<br><br>
+
+Select
+
+<br>
+
+<b>
+
+ESP32S3 Dev Module
+
+</b>
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+3. Select COM Port
+</h3>
+
+<p>
+
+Connect your board.
+
+Open
+
+<br><br>
+
+<b>
+
+Tools → Port
+
+</b>
+
+<br><br>
+
+Select the detected serial port.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+4. Build & Upload
+</h3>
+
+<p>
+
+Click
+
+<b>Verify</b>
+
+to compile the firmware.
+
+If compilation succeeds,
+
+click
+
+<b>Upload</b>
+
+and wait until the board restarts.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+<section id="troubleshooting">
+
+<h2 class="title">
+Troubleshooting
+</h2>
+
+<div class="line"></div>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>
+Compilation Failed
+</h3>
+
+<p>
+
+If the firmware does not compile,
+make sure that:
+
+<br><br>
+
+✔ ESP32 Arduino Core is installed.
+
+<br>
+
+✔ LovyanGFX is installed.
+
+<br>
+
+✔ ESP32S3 Dev Module is selected.
+
+<br>
+
+✔ All project files are inside the same folder.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Upload Failed
+</h3>
+
+<p>
+
+If uploading fails:
+
+<br><br>
+
+• Verify the selected COM Port.
+
+<br>
+
+• Disconnect and reconnect the USB cable.
+
+<br>
+
+• Close the Serial Monitor.
+
+<br>
+
+• Press and hold the BOOT button while clicking Upload
+if your board requires it.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Display Problems
+</h3>
+
+<p>
+
+If nothing appears on the display:
+
+<br><br>
+
+• Confirm that your display uses the ST7789 controller.
+
+<br>
+
+• Verify the display resolution is 320×240.
+
+<br>
+
+• Check your wiring carefully.
+
+<br>
+
+• Make sure LovyanGFX is installed correctly.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Board Not Detected
+</h3>
+
+<p>
+
+If Arduino IDE cannot detect your board:
+
+<br><br>
+
+• Try another USB cable.
+
+<br>
+
+• Try another USB port.
+
+<br>
+
+• Reconnect the board.
+
+<br>
+
+• Restart Arduino IDE.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="faq">
+
+<h2 class="title">
+Frequently Asked Questions
+</h2>
+
+<div class="line"></div>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>
+Which board should I select?
+</h3>
+
+<p>
+
+Always select
+
+<br><br>
+
+<b>
+
+ESP32S3 Dev Module
+
+</b>
+
+<br><br>
+
+inside Arduino IDE.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Which hardware was tested?
+</h3>
+
+<p>
+
+This firmware has been fully tested on
+
+<br><br>
+
+<b>
+
+ESP32-S3 N16R8
+
+</b>
+
+<br><br>
+
+using an ST7789
+320×240 SPI display.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Can I modify the project?
+</h3>
+
+<p>
+
+Absolutely.
+
+You are free to customize,
+improve,
+and expand the firmware to fit your own hardware
+or add new features.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Can I use another display?
+</h3>
+
+<p>
+
+Yes.
+
+However,
+you may need to modify
+the display configuration inside
+LovyanGFX
+to match your hardware.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section id="contribute">
+
+<h2 class="title">
+Contribute
+</h2>
+
+<div class="line"></div>
+
+<div class="card">
+
+<h3>
+Help Improve ESP32-FW
+</h3>
+
+<p style="font-size:18px;line-height:2;color:#c6d2ef;">
+
+Thank you for checking out this project.
+
+If you enjoy using this firmware,
+I would be happy to see your own improvements,
+bug fixes,
+optimizations,
+or new features.
+
+Every contribution helps make this project better for everyone.
+
+Whether you improve the interface,
+add new functionality,
+fix bugs,
+or optimize performance,
+your work is always appreciated.
+
+If you create your own version,
+please consider sharing it with the community.
+
+</p>
+
+</div>
+
+</section>
+<section id="contact">
+
+<h2 class="title">
+Contact
+</h2>
+
+<div class="line"></div>
+
+<div class="cards">
+
+<div class="card">
+
+<h3>
+Developer
+</h3>
+
+<p>
+
+Thank you for using
+<b>ESP32-FW</b>.
+
+If you have questions,
+feature requests,
+or discover a bug,
+feel free to get in touch.
+
+I also welcome suggestions,
+feedback,
+and improvements from the community.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Email
+</h3>
+
+<p>
+
+<a href="mailto:ymym35681@gmail.com"
+style="
+color:#66c3ff;
+text-decoration:none;
+font-size:18px;
+font-weight:600;
+">
+
+ymym35681@gmail.com
+
+</a>
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Open Source
+</h3>
+
+<p>
+
+This project is open source.
+
+Feel free to fork,
+modify,
+improve,
+and share your own version.
+
+Every contribution helps improve
+ESP32-FW for everyone.
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+Support the Project
+</h3>
+
+<p>
+
+If this firmware helped you,
+consider giving the repository
+a ⭐ on GitHub.
+
+It motivates future updates
+and new features.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<div style="font-size:28px;font-weight:700;color:#66c3ff;margin-bottom:15px;">
+
+ESP32-FW
+
+</div>
+
+<p style="max-width:900px;margin:auto;line-height:2;color:#b9c7e5;">
+
+Designed and developed for the
+ESP32-S3 platform.
+
+Thank you for using this firmware.
+
+Your ideas,
+bug reports,
+feature requests,
+and contributions are always welcome.
+
+Together we can continue improving
+ESP32-FW for the entire community.
+
+</p>
+
+<div style="margin-top:35px;color:#7f90b5;">
+
+© 2026 ESP32-FW
+
+</div>
+
+</footer>
+
+</body>
+</html>
