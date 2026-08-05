@@ -46,7 +46,7 @@ void drawHeader()
 
     lcd.setTextSize(2);
 
-    lcd.drawString("Bruce S3",8,4);
+    lcd.drawString("ESP32-FW",8,4);
 }
 
 void drawFooter()
